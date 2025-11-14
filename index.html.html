@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>50 MCQ Test — Social Science (Chapters 1–6, 8–11, 15–19)</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:0;padding:24px;background:#f6f8fb;color:#102a43}
+    .container{max-width:900px;margin:0 auto;background:white;padding:20px;border-radius:8px;box-shadow:0 8px 30px rgba(16,42,67,.08)}
+    h1{font-size:20px;margin:0 0 8px}
+    p.meta{color:#334e68;margin:0 0 16px}
+    .q{padding:12px;border-radius:6px;background:#fbfcfe;margin-bottom:10px}
+    .opts{margin-top:6px}
+    label{display:block;margin-bottom:6px;cursor:pointer}
+    .controls{display:flex;gap:8px;margin-top:12px}
+    button{padding:10px 12px;border-radius:6px;border:0;cursor:pointer}
+    button.primary{background:#0b6ff2;color:white}
+    button.ghost{background:#eef3ff;color:#0b6ff2}
+    .result{margin-top:16px;padding:12px;border-radius:6px;background:#f0fdf4;color:#064e3b}
+    .export{margin-top:12px}
+    footer{font-size:13px;color:#617d98;margin-top:18px}
+    @media (max-width:600px){body{padding:12px}.container{padding:14px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <center> <h1> PRATIBHA CLASSES </h1> </center> <br>
+	<h2>50 MCQ Test — Social Science (Chapters 1–6, 8–11, 15–19)</h2>
+    <p class="meta">Choose one option per question. Click <strong>Grade</strong> to auto-score </p>
+
+    <div class="q"><strong>Student Name:</strong><br><input type="text" id="studentName" placeholder="Enter your name" style="padding:6px;margin-top:6px;width:100%;max-width:300px"></div>
+      <form id="quiz">
+      <!-- Questions will be injected here -->
+    </form>
+
+    <div class="controls">
+      <button id="gradeBtn" class="primary">Grade</button>
+      <button id="clearBtn" type="button" class="ghost">Clear answers</button>
+      <button id="downloadBtn" type="button">Download responses (CSV)</button>
+    </div>
+
+    <div id="result" class="result" style="display:none"></div>
+    <div id="exportNote" class="export" style="display:none"></div>
+
+    <footer>Use this file locally or upload to your web host. This is not a Google Form but replicates the quiz and auto-grades it.</footer>
+  </div>
+
+<script>
+// Questions array (50 MCQs). Each question has text, options array, and correct index (0-based).
+const questions = [
+  {q:"The word \u201cBharatvarsha\u201d is mentioned in which ancient text?",opts:["Manusmriti","Vishnupuran","Ramayana","Arthashastra"],a:1},
+  {q:"Which of the following is a part of India\u2019s cultural heritage?",opts:["Rivers","Hills","Temples and monuments","Seasons"],a:2},
+  {q:"Which tribe is known as \'Kirat\'?",opts:["Dravidians","Mongoloids","Australoids","Negrito"],a:1},
+  {q:"Patola weaving is associated with which place?",opts:["Bhuj","Patan","Idar","Morbi"],a:1},
+  {q:"Evidence of ancient clay utensils in Gujarat was found at:",opts:["Lothal","Rangpur","Laghnaj","Rozadi"],a:2},
+  {q:"The paintings of Ajanta are mainly associated with:",opts:["Hinduism","Jainism","Buddhism","Islam"],a:2},
+  {q:"The Indus Valley Civilization is also called:",opts:["Aryan Civilization","Harappan Civilization","Mauryan Civilization","Gupta Civilization"],a:1},
+  {q:"Which site had a well-planned dockyard?",opts:["Harappa","Mohenjodaro","Lothal","Dholavira"],a:2},
+  {q:"The earliest script of India is:",opts:["Brahmi","Devanagari","Harappan Script","Kharosthi"],a:2},
+  {q:"Bhavai is associated with which art form?",opts:["Dance","Drama","Painting","Sculpture"],a:1},
+
+  {q:"Veda means:",opts:["Knowledge","Prayer","Power","Religion"],a:0},
+  {q:"Which of the following is a part of Vedic literature?",opts:["Gita","Brahmanas","Purana","Ramayana"],a:1},
+  {q:"The earliest Buddhist literature was written in:",opts:["Sanskrit","Pali","Tamil","Prakrit"],a:1},
+  {q:"Who wrote \u201cRajatarangini\u201d?",opts:["Kalidas","Banabhatta","Kalhan","Somdev"],a:2},
+  {q:"\u201cGeetgovind\u201d is written by:",opts:["Jaydev","Tulsidas","Narsinh Mehta","Kabir"],a:0},
+  {q:"Which place is associated with India\u2019s freedom movement?",opts:["Nalanda","Sabarmati Ashram","Ajanta","Khajuraho"],a:1},
+  {q:"Ajanta and Ellora caves are located in:",opts:["Gujarat","Odisha","Maharashtra","Rajasthan"],a:2},
+  {q:"Which of the following is a Jain pilgrimage?",opts:["Somnath","Palitana","Rameshwaram","Kashi"],a:1},
+  {q:"The Sun Temple of Modhera was built by:",opts:["Kumarpal","Siddharaj","Bhimdev I","Jayasimha"],a:2},
+  {q:"The Kailashnath Temple of Kanchi was built by:",opts:["Cholas","Pallavas","Guptas","Mauryas"],a:1},
+
+  {q:"Which of the following is a renewable resource?",opts:["Coal","Petrol","Solar energy","Natural gas"],a:2},
+  {q:"The major cause of deforestation is:",opts:["Tourism","Agriculture expansion","Fishing","Mining only"],a:1},
+  {q:"Social forestry aims at:",opts:["More industries","Protecting wildlife","Tree plantation by people","Dam construction"],a:2},
+  {q:"Which soil is most suitable for cotton?",opts:["Red soil","Alluvial soil","Black soil","Laterite soil"],a:2},
+  {q:"India is the largest producer of which crop?",opts:["Wheat","Rice","Groundnut","Millets"],a:1},
+  {q:"The largest irrigation source in India is:",opts:["Canals","Tanks","Groundwater","Floodwater"],a:2},
+  {q:"Which state uses canal irrigation extensively?",opts:["Rajasthan","Kerala","Assam","Bihar"],a:3},
+  {q:"Which river is also called Dakshin Ganga?",opts:["Krishna","Godavari","Kaveri","Narmada"],a:1},
+  {q:"The Hirakud Dam is built on which river?",opts:["Ganga","Mahanadi","Brahmaputra","Tapti"],a:1},
+  {q:"Which of the following is NOT a water resource?",opts:["Groundwater","Oceans","Dams","Petroleum"],a:3},
+
+  {q:"Economic development mainly refers to:",opts:["Increase in wealth only","Rise in national income and living standards","Only industrial growth","Only agricultural growth"],a:1},
+  {q:"Which indicator is used in Human Development Index?",opts:["Military strength","GDP only","Health","Sports performance"],a:2},
+  {q:"Liberalization means:",opts:["Increase in government control","Reduction of government restrictions","Closing foreign trade","Ban on private companies"],a:1},
+  {q:"A major result of globalization is:",opts:["Decrease in foreign investment","More isolation of countries","Growth in world trade","Decline in technology"],a:2},
+  {q:"Which of the following is a cause of unemployment?",opts:["High literacy","Lack of skills","Surplus jobs","Too many industries"],a:1},
+  {q:"Poverty is measured mainly using:",opts:["Height","Literacy","Income","Age"],a:2},
+  {q:"Seasonal unemployment is common in:",opts:["Factories","Agriculture","Banks","IT sector"],a:1},
+  {q:"Which of the following increases poverty?",opts:["Employment generation","Skill training","Rising population","Higher wages"],a:2},
+  {q:"Which program helps reduce poverty?",opts:["MIDC","MGNREGA","UIDAI","ISRO"],a:1},
+  {q:"Structural unemployment occurs due to:",opts:["Lack of education","New technology replacing old skills","Seasonal changes","Natural disasters"],a:1},
+
+  {q:"Price rise mainly occurs when:",opts:["Supply is more than demand","Demand is more than supply","Both equal","Production increases"],a:1},
+  {q:"Which is an effect of price rise?",opts:["Increase in savings","Decrease in living standards","More employment","Lower wages"],a:1},
+  {q:"Consumer awareness helps reduce:",opts:["Natural disasters","Fraud and exploitation","Prices of all goods","Literacy rate"],a:1},
+  {q:"Human development focuses on:",opts:["Wealth only","Health, education and income","Sports","Cultural growth only"],a:1},
+  {q:"Which is NOT included in HDI?",opts:["Life expectancy","Education","Per capita income","Agricultural growth"],a:3},
+  {q:"Which country introduced the HDI concept?",opts:["India","USA","Pakistan","UNDP"],a:3},
+  {q:"A key element of consumer rights is:",opts:["Right to fight","Right to safety","Right to protest","Right to donate"],a:1},
+  {q:"Black marketing leads to:",opts:["Price stability","Artificial scarcity","More production","Lower demand"],a:1},
+  {q:"Which factor improves human development?",opts:["Illiteracy","Good healthcare","Malnutrition","Unemployment"],a:1},
+  {q:"Higher education levels usually lead to:",opts:["More unemployment","Lower wages","Better job opportunities","Economic decline"],a:2}
+];
+
+// render questions
+const form = document.getElementById('quiz');
+questions.forEach((item,i)=>{
+  const div = document.createElement('div'); div.className='q';
+  const qn = document.createElement('div'); qn.innerHTML = `<strong>Q${i+1}.</strong> ${item.q}`;
+  div.appendChild(qn);
+  const opts = document.createElement('div'); opts.className='opts';
+  item.opts.forEach((opt,j)=>{
+    const id = `q${i}_opt${j}`;
+    const label = document.createElement('label');
+    label.innerHTML = `<input type="radio" name="q${i}" value="${j}" id="${id}"> ${String.fromCharCode(97+j)}) ${opt}`;
+    opts.appendChild(label);
+  });
+  div.appendChild(opts);
+  form.appendChild(div);
+});
+
+// grading logic
+const answers = questions.map(x=>x.a);
+const gradeBtn = document.getElementById('gradeBtn');
+const clearBtn = document.getElementById('clearBtn');
+const resultDiv = document.getElementById('result');
+const downloadBtn = document.getElementById('downloadBtn');
+
+submitBtn=document.getElementById('gradeBtn');
+submitBtn.addEventListener('click', (e)=>{
+  e.preventDefault();
+  if(!document.getElementById('studentName').value.trim()){
+    alert('Please enter your name before submitting.');
+    return;
+  }
+  if(!confirm('After submitting, you will NOT be able to modify your answers. Do you want to proceed?')) return;
+  let score = 0; let attempted=0; const responses = [];
+  for(let i=0;i<questions.length;i++){
+    const val = form[`q${i}`].value;
+    if(val!=='') { attempted++; responses.push(val); if(parseInt(val,10)===answers[i]) score++; }
+    else { responses.push(''); }
+  }
+  resultDiv.style.display='block';
+  resultDiv.innerHTML = `Name: <strong>${document.getElementById('studentName').value}</strong><br>You scored <strong>${score}</strong> out of <strong>${questions.length}</strong>.<br>Attempted: ${attempted}.`;
+  for(let i=0;i<questions.length;i++){
+    const qDiv = form.children[i];
+    qDiv.style.border = '1px solid transparent';
+    const selected = form[`q${i}`].value;
+    if(selected===''){
+      qDiv.style.background='#fff7e6';
+    } else if(parseInt(selected,10)===answers[i]){
+      qDiv.style.background='#ecfdf5';
+    } else {
+      qDiv.style.background='#fff1f2';
+    }
+  }
+});('click', (e)=>{
+  e.preventDefault();
+  let score = 0; let attempted=0; const responses = [];
+  for(let i=0;i<questions.length;i++){
+    const val = form[`q${i}`].value;
+    if(val!=='') { attempted++; responses.push(val); if(parseInt(val,10)===answers[i]) score++; }
+    else { responses.push(''); }
+  }
+  resultDiv.style.display='block';
+  resultDiv.innerHTML = `You scored <strong>${score}</strong> out of <strong>${questions.length}</strong>.<br>Attempted: ${attempted}.`;
+  // highlight wrong/correct
+  for(let i=0;i<questions.length;i++){
+    const qDiv = form.children[i];
+    qDiv.style.border = '1px solid transparent';
+    const selected = form[`q${i}`].value;
+    if(selected===''){
+      qDiv.style.background='#fff7e6';
+    } else if(parseInt(selected,10)===answers[i]){
+      qDiv.style.background='#ecfdf5';
+    } else {
+      qDiv.style.background='#fff1f2';
+    }
+  }
+});
+
+clearBtn.addEventListener('click', ()=>{ form.reset(); resultDiv.style.display='none'; document.getElementById('exportNote').style.display='none'; Array.from(form.children).forEach(d=>d.style.background='');});
+
+// CSV download
+function makeCSV(){
+  const rows=[['Question Number','Question','Selected Option (letter)','Selected Option (text)','Correct Option (letter)','Correct Option (text)']];
+  for(let i=0;i<questions.length;i++){
+    const q=questions[i];
+    const sel = form[`q${i}`].value;
+    const selIdx = sel===''? '': parseInt(sel,10);
+    const selLetter = sel===''? '': String.fromCharCode(97+selIdx);
+    const selText = sel===''? '': q.opts[selIdx];
+    const corrIdx = q.a; const corrLetter = String.fromCharCode(97+corrIdx); const corrText = q.opts[corrIdx];
+    rows.push([i+1,q.q,selLetter,selText,corrLetter,corrText]);
+  }
+  return rows.map(r=>r.map(cell=>`"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\n');
+}
+
+downloadBtn.addEventListener('click', ()=>{
+  const csv = makeCSV();
+  const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='50_MCQ_responses.csv'; document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  const note = document.getElementById('exportNote'); note.style.display='block'; note.textContent='CSV downloaded. You can import or open it in Excel/Sheets.';
+});
+
+</script>
+</body>
+</html>
